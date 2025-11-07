@@ -1,21 +1,22 @@
 using System;
 using System.Text;
 
+namespace DecryptorApp
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Enter Encrypted Text:");
+            Console.WriteLine("Enter text for decryption:");
             string encryptedText = Console.ReadLine();
 
-            Console.WriteLine("Shift Key:");
+            Console.WriteLine("Enter Key:");
             int shift = int.Parse(Console.ReadLine());
 
             string decryptedText = CaesarCipher.Decrypt(encryptedText, shift);
 
             Console.WriteLine(new string('-', 20));
-            Console.WriteLine($"Decrypted Text: {decryptedText}");
+            Console.WriteLine($"Original Text: {decryptedText}");
         }
     }
 
