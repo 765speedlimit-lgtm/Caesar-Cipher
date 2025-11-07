@@ -11,16 +11,15 @@ using System.Text;
 
             Console.WriteLine($"Original Text: {originalText}");
             Console.WriteLine($"Shift Key: {shift}");
-            Console.WriteLine(new string('-', 20)); //разделител
+            Console.WriteLine(new string('-', 20));
 
             //encryption
-            // Този код сега ще работи, защото CaesarCipher е в същия файл
             string encryptedText = CaesarCipher.Encrypt(originalText, shift);
-            Console.WriteLine($"Шифриран текст: {encryptedText}");
+            Console.WriteLine($"Encrypted Text: {encryptedText}");
 
             //decryption
             string decryptedText = CaesarCipher.Decrypt(encryptedText, shift);
-            Console.WriteLine($"Дешифриран текст: {decryptedText}");
+            Console.WriteLine($"Original Text: {decryptedText}");
 
             Console.WriteLine(new string('-', 20));
 
