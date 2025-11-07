@@ -1,10 +1,6 @@
 using System;
-using System.Text; // Нужно е за StringBuilder
-
-// Използвай твоя namespace, например ConsoleApp8
-namespace ConsoleApp8
+using System.Text;
 {
-    // ----- Това е твоят клас с Main метода -----
     public class Program
     {
         public static void Main(string[] args)
@@ -28,7 +24,6 @@ namespace ConsoleApp8
 
             Console.WriteLine(new string('-', 20));
 
-            // Проверяваме дали всичко е минало успешно.
             if (originalText == decryptedText)
             {
                 Console.WriteLine("Success!");
@@ -40,11 +35,8 @@ namespace ConsoleApp8
         }
     }
 
-    // ----- Това е твоят клас за шифриране -----
-    // Поставен в СЪЩИЯ ФАЙЛ и СЪЩИЯ NAMESPACE
     public class CaesarCipher
     {
-        // --- Метод за Шифриране ---
         public static string Encrypt(string text, int shift)
         {
             StringBuilder encryptedText = new StringBuilder();
@@ -54,18 +46,14 @@ namespace ConsoleApp8
                 // 1. Проверяваме дали символът е буква
                 if (char.IsLetter(c))
                 {
-                    // 2. Определяме основата: 'A' за главни, 'a' за малки
                     char baseChar = char.IsUpper(c) ? 'A' : 'a';
 
-                    // 3. Математиката за "обвиване" на азбуката (0-25)
                     int newCharIndex = (c - baseChar + shift) % 26;
                     
-                    // 4. Добавяме новия символ към резултата
                     encryptedText.Append((char)(baseChar + newCharIndex));
                 }
                 else
                 {
-                    // 5. Ако не е буква (интервал, !, .), просто я добавяме
                     encryptedText.Append(c);
                 }
             }
@@ -73,10 +61,8 @@ namespace ConsoleApp8
             return encryptedText.ToString();
         }
 
-        // --- Метод за Дешифриране ---
         public static string Decrypt(string text, int shift)
         {
-            // Дешифриране = шифриране с обратен shift
             int decryptShift = 26 - (shift % 26);
             
             return Encrypt(text, decryptShift);
