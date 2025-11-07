@@ -1,0 +1,50 @@
+using System;
+using System.Text;
+
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Enter Encrypted Text:");
+            string encryptedText = Console.ReadLine();
+
+            Console.WriteLine("Shift Key:");
+            int shift = int.Parse(Console.ReadLine());
+
+            string decryptedText = CaesarCipher.Decrypt(encryptedText, shift);
+
+            Console.WriteLine(new string('-', 20));
+            Console.WriteLine($"Decrypted Text: {decryptedText}");
+        }
+    }
+
+    public class CaesarCipher
+    {
+        public static string Encrypt(string text, int shift)
+        {
+            StringBuilder encryptedText = new StringBuilder();
+
+            foreach (char c in text)
+            {
+                if (char.IsLetter(c))
+                {
+                    char baseChar = char.IsUpper(c) ? 'A' : 'a';
+                    int newCharIndex = (c - baseChar + shift) % 26;
+                    encryptedText.Append((char)(baseChar + newCharIndex));
+                }
+                else
+                {
+                    encryptedText.Append(c);
+                }
+            }
+            return encryptedText.ToString();
+        }
+
+        public static string Decrypt(string text, int shift)
+        {
+            int decryptShift = 26 - (shift % 26);
+            return Encrypt(text, decryptShift);
+        }
+    }
+}
