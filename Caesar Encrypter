@@ -1,5 +1,7 @@
 using System;
-using System.Text;
+using System.Text; 
+
+namespace EncrypterApp
 {
     public class Program
     {
@@ -7,7 +9,8 @@ using System.Text;
         {
             Console.WriteLine("Unencrypted Input:");
             string originalText = Console.ReadLine();
-            int shift = 5;
+            Console.WriteLine("Shift Key:");
+            int shift = int.Parse(Console.ReadLine());
 
             Console.WriteLine($"Original Text: {originalText}");
             Console.WriteLine($"Shift Key: {shift}");
@@ -19,7 +22,7 @@ using System.Text;
 
             //decryption
             string decryptedText = CaesarCipher.Decrypt(encryptedText, shift);
-            Console.WriteLine($"Original Text: {decryptedText}");
+            Console.WriteLine($"Decrypted Text: {decryptedText}");
 
             Console.WriteLine(new string('-', 20));
 
@@ -47,7 +50,7 @@ using System.Text;
                     char baseChar = char.IsUpper(c) ? 'A' : 'a';
 
                     int newCharIndex = (c - baseChar + shift) % 26;
-                    
+
                     encryptedText.Append((char)(baseChar + newCharIndex));
                 }
                 else
@@ -62,7 +65,7 @@ using System.Text;
         public static string Decrypt(string text, int shift)
         {
             int decryptShift = 26 - (shift % 26);
-            
+
             return Encrypt(text, decryptShift);
         }
     }
