@@ -1,0 +1,85 @@
+using System;
+using System.Text; // Нужно е за StringBuilder
+
+// Използвай твоя namespace, например ConsoleApp8
+namespace ConsoleApp8
+{
+    // ----- Това е твоят клас с Main метода -----
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Unencrypted Input:");
+            string originalText = Console.ReadLine();
+            int shift = 5;
+
+            Console.WriteLine($"Original Text: {originalText}");
+            Console.WriteLine($"Shift Key: {shift}");
+            Console.WriteLine(new string('-', 20)); //разделител
+
+            //encryption
+            // Този код сега ще работи, защото CaesarCipher е в същия файл
+            string encryptedText = CaesarCipher.Encrypt(originalText, shift);
+            Console.WriteLine($"Шифриран текст: {encryptedText}");
+
+            //decryption
+            string decryptedText = CaesarCipher.Decrypt(encryptedText, shift);
+            Console.WriteLine($"Дешифриран текст: {decryptedText}");
+
+            Console.WriteLine(new string('-', 20));
+
+            // Проверяваме дали всичко е минало успешно.
+            if (originalText == decryptedText)
+            {
+                Console.WriteLine("Success!");
+            }
+            else
+            {
+                Console.WriteLine("Error!");
+            }
+        }
+    }
+
+    // ----- Това е твоят клас за шифриране -----
+    // Поставен в СЪЩИЯ ФАЙЛ и СЪЩИЯ NAMESPACE
+    public class CaesarCipher
+    {
+        // --- Метод за Шифриране ---
+        public static string Encrypt(string text, int shift)
+        {
+            StringBuilder encryptedText = new StringBuilder();
+
+            foreach (char c in text)
+            {
+                // 1. Проверяваме дали символът е буква
+                if (char.IsLetter(c))
+                {
+                    // 2. Определяме основата: 'A' за главни, 'a' за малки
+                    char baseChar = char.IsUpper(c) ? 'A' : 'a';
+
+                    // 3. Математиката за "обвиване" на азбуката (0-25)
+                    int newCharIndex = (c - baseChar + shift) % 26;
+                    
+                    // 4. Добавяме новия символ към резултата
+                    encryptedText.Append((char)(baseChar + newCharIndex));
+                }
+                else
+                {
+                    // 5. Ако не е буква (интервал, !, .), просто я добавяме
+                    encryptedText.Append(c);
+                }
+            }
+
+            return encryptedText.ToString();
+        }
+
+        // --- Метод за Дешифриране ---
+        public static string Decrypt(string text, int shift)
+        {
+            // Дешифриране = шифриране с обратен shift
+            int decryptShift = 26 - (shift % 26);
+            
+            return Encrypt(text, decryptShift);
+        }
+    }
+}
