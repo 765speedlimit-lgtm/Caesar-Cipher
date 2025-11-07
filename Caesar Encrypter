@@ -43,7 +43,6 @@ using System.Text;
 
             foreach (char c in text)
             {
-                // 1. Проверяваме дали символът е буква
                 if (char.IsLetter(c))
                 {
                     char baseChar = char.IsUpper(c) ? 'A' : 'a';
